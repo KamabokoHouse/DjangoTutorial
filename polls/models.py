@@ -20,9 +20,10 @@ class Question(models.Model):
         return self.question_text
     def was_published_recently(self):
         """
-        return pubdata
+        昨日と今日の場合、trueを返す
         """
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 class Choice(models.Model):
     """
@@ -36,4 +37,3 @@ class Choice(models.Model):
         テキストを返します
         """
         return self.choice_text
-        
